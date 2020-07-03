@@ -1,10 +1,10 @@
 {
-    "prefix_webpath_app" : "/clarovideo/track-campaign-flask",
-    "secret_key" : "super secret key_asASnG3l3%5.$dk34i$%$AM4J0a42.d.ri_E",
+    "prefix_webpath_app" : "",
+    "secret_key" : "",
 
     "ssl":{
-        "certificate_path": "/home/aralvare/uploads/wildcard/ssl.crt/wildcard.crt",
-        "private_key_path": "/home/aralvare/uploads/wildcard/ssl.crt/private.key"
+        "certificate_path": "",
+        "private_key_path": ""
     },
 
     "uploads":{
@@ -12,13 +12,13 @@
         "allowed_extensions_images" : [
             "jpg", "jpeg", "png", "tiff"
         ],
-        "max_file_size_to_receive_MB" : 20
+        "max_file_size_to_receive_MB" : 5
     }, 
     
     "datatabase":{
-        "hostname":"10.129.32.42",
-        "username":"tracking_cv_user_01",
-        "password":"8mA.0.4YdfS#fYS3$_q3",
-        "database":"tracking_insumos_cv"
+        "hostname":"",
+        "username":"",
+        "password":"",
+        "database":""
     }
 }

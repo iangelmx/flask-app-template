@@ -4,7 +4,7 @@ from flask import ( Flask, jsonify, send_file, request,
                     send_from_directory, redirect  )
 from config.includes import *
 
-settings = json.loads( open("./includes/settings.json", "r").read() )
+settings = json.loads( open("./config/settings.json", "r").read() )
 
 SECRET_KEY = settings['secret_key']
 UPLOAD_FOLDER = settings['uploads']['upload_folder']
@@ -75,66 +75,25 @@ def file_gone(error):
 def intServErr(error):
 	return render_template('./ErrorPages/500.html',errorInfo=error),500
 
-@app.route(PREFIX_APP)
-def hello_start():
-    return jsonify(ok=True, status_code=200, description="Deployed :P")
-
 '''
 ----------------------------------------------------------------------------
 Fin ERROR PAGES
 ----------------------------------------------------------------------------
 '''
 
-
-'''
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
-PDS
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
-'''
-
-
-
-@app.route(PREFIX_APP+'/recoverPassword/<app>/<idRowDB>', methods=['GET'])
-def recoverPassword(app, idRowDB):
-	bd = Bd('pdstelmexprod', hostname='localhost', username='adminNoDrop', password='Trun0k2SAg')
-	apps = { '1': 'PDS - Telmex', '2':'SGS - Telmex', '3':'Club de golf Cuernavaca TMX' }
-	nombres = {'1':'Desarrollo de soluciones', '2':'Sistema de Gestión Sustentable', '3':'Club de golf Cuernanaca'}
-
-	parametros = {
-		'app' : apps[app],
-		'nombre' : nombres[app],
-	}
-
-	a = bd.doQuery("SELECT status, idUser, expire FROM recoverPassTemp WHERE accountToChange ='{}';".format(idRowDB))
-
-	if len(a)>0:
-		if a[0][2] >= datetime.datetime.now():
-			user = bd.doQuery("SELECT field_7, field_9 FROM app_entity_1 WHERE id = {};".format(a[0][1]))
-			parametros['details'] = {'username':user[0][0], 'email':user[0][1], 'expired':False}
-		else:
-			parametros['details']={'expired':True}
 	
-	if len(a) <= 0:
-		parametros['details'] = None
-		return render_template('./pds/recoverPassLayout.html', params=parametros)
-	else:
-		return render_template('./pds/recoverPassLayout.html', params=parametros)
-
 '''
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
-Tracking campaigns Claro video
+Endpoints
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 '''
 
-@app.route(PREFIX_APP+'/get-analytics-data', methods=['POST','GET'])
-def reporte_entradas_mes_ppt():
-	pass
-    return jsonify( ok=True, description="Endpoint enabled" )
-
+@app.route(PREFIX_APP)
+def hello_start():
+    return jsonify(ok=True, status_code=200, description="Deployed :P")
+	
 '''
 ----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
